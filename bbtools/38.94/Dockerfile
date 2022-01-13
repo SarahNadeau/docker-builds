@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:xenial as app
 
 LABEL base.image="ubuntu:xenial"
 LABEL dockerfile.version="1"
@@ -40,3 +40,19 @@ ENV PATH="${PATH}:/bbmap"\
     LC_ALL=C
 
 WORKDIR /data
+
+FROM app as test
+
+# Get test dependencies
+RUN apt-get update && apt-get install -y python3
+RUN mkdir tests
+COPY tests/scripts tests/scripts
+
+# Run positive control
+RUN bash tests/scripts/run_positive_control.sh
+
+# Check output
+COPY tests/test* tests/
+RUN python3 -m unittest discover -s tests
+
+# Test with: docker build --progress=plain --target=test -t bbtools-test-image .
