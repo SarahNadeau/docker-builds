@@ -45,14 +45,14 @@ FROM app as test
 
 # Get test dependencies
 RUN apt-get update && apt-get install -y python3
-RUN mkdir tests
-COPY tests/scripts tests/scripts
+COPY bbtools/38.94/tests /tests
+RUN mkdir /test_data
+COPY test_data/*_sub*.fastq.gz /test_data/
 
 # Run positive control
-RUN bash tests/scripts/run_positive_control.sh
+RUN bash /tests/scripts/run_positive_control.sh
 
 # Check output
-COPY tests/test* tests/
-RUN python3 -m unittest discover -s tests
+RUN python3 -m unittest discover -s /tests
 
-# Test with: docker build --progress=plain --target=test -t bbtools-test-image .
+# Test with: docker build --progress=plain --target=test -t bbtools-test-image -f bbtools/38.94/Dockerfile .

@@ -1,22 +1,14 @@
 #!/bin/bash
-# This script pulls read files from NCBI for reference strain Escherichia coli O157:H7 CDC EDL 933.
+# This script uses read files from NCBI for reference strain Escherichia coli O157:H7 CDC EDL 933.
 # It runs bbduk.sh to check that PhiX contaminants from Illumina spike-in are successfully removed.
 
-I=pos_control/input_dir
-O=pos_control/output_dir/trim_reads
-RUN=SRR1509643
-
-mkdir -p $I
+I=/test_data
+O=$I/trim_reads
 mkdir -p $O
 
-# Download test data from ENA FTP site if not already available (e.g. via a mounted volume)
-wget --directory-prefix $I --no-clobber -q \
-  ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1509643/SRR1509643_1.fastq.gz \
-  ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR150/003/SRR1509643/SRR1509643_2.fastq.gz
-
-R1=$I/${RUN}_1.fastq
-R2=$I/${RUN}_2.fastq
-B=$RUN
+R1=$I/SRR5481494_sub_1.fastq.gz
+R2=$I/SRR5481494_sub_2.fastq.gz
+B=SRR5481494_sub
 
 PHIX="/bbmap/resources/phix174_ill.ref.fa.gz"
 

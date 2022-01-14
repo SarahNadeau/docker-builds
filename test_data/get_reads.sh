@@ -11,8 +11,8 @@ docker run --rm --mount type=bind,src="$(pwd)",dst=/data staphb/bbtools:38.94 \
   reformat.sh \
     in1=SRR5481494_1.fastq.gz \
     in2=SRR5481494_2.fastq.gz \
-    out1=SRR5481494_1_sub.fastq.gz \
-    out2=SRR5481494_2_sub.fastq.gz \
+    out1=SRR5481494_sub_1.fastq.gz \
+    out2=SRR5481494_sub_2.fastq.gz \
     samplerate=0.57 \
     overwrite=true
 

@@ -14,6 +14,6 @@ jobs:
   build-to-test:
     uses: SarahNadeau/bioinf-containers/.github/workflows/build-to-test.yml@master  # TODO: change to pull the workflow from StaPH-B as soon as it is available there
     with:
-      path_to_context: "./bbtools/38.94"  # Path to directory with Dockerfile and context, e.g. "./spades/3.12.0"
-      dockerfile_name: "Dockerfile"
+      path_to_context: "."  # Path to directory with Dockerfile and context, e.g. "./spades/3.12.0"
+      dockerfile_name: "/bbtools/38.94/Dockerfile"
       cache: "bbtools"  # Use the program name as a nickname for a GitHub cache of your image's layers, e.g. "spades". The cache will speed up re-running the workflow.

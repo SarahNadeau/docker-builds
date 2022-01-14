@@ -1,17 +1,11 @@
 import unittest
-import subprocess
-from subprocess import PIPE
-from os.path import exists
 
 class TestPositiveControl(unittest.TestCase):
 
-    def test_output_downloaded(self):
-        assert exists("pos_control/input_dir")
-
     def test_filtered_output(self):
-        with open("pos_control/output_dir/trim_reads/SRR1509643-noPhiX-R1.fsq.sorted.checksum", 'r') as f:
+        with open("/test_data/trim_reads/SRR5481494_sub-noPhiX-R1.fsq.sorted.checksum", 'r') as f:
             filtered_r1_hash = f.readlines()[0].split(" ")[0]
-        self.assertEqual(filtered_r1_hash, "a2544ea729d955cc39460372fe4c2471f3c5bb1476515c1c4e6a0f2f601b90da")
+        self.assertEqual(filtered_r1_hash, "0ba36472f1bb86ecc6665a96bd1994e16f6f5d66e9df09da5854171f32da6475")
 
 if __name__ == '__main__':
     unittest.main()
