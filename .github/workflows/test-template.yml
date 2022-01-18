@@ -14,6 +14,6 @@ jobs:
   build-to-test:
     uses: SarahNadeau/docker-builds/.github/workflows/build-to-test.yml@sarah-dev  # TODO: change to pull the workflow from StaPH-B as soon as it is available there
     with:
-      path_to_context: "./<program name>/<program version>"  # Path to directory with Dockerfile and context, e.g. "./spades/3.12.0"
-      dockerfile_name: "Dockerfile"
+      path_to_context: "./<program name>/<program version>"  # Path to directory with Dockerfile and context, e.g. "./spades/3.12.0"; if you need to have the whole repo as context (e.g. to use files in test_data), use "."
+      dockerfile_name: "Dockerfile"  # Name of the Dockerfile, should be "Dockerfile"; if you need to have the whole repo as context, use e.g. "./spades/3.12.0/Dockerfile"
       cache: "<program name>"  # Use the program name as a nickname for a GitHub cache of your image's layers, e.g. "spades". The cache will speed up re-running the workflow.

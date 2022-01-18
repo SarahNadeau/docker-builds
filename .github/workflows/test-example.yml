@@ -16,4 +16,7 @@ jobs:
     with:
       path_to_context: "./example/3.12.0"  # Path to directory with Dockerfile and context, e.g. "./spades/3.12.0"
       dockerfile_name: "Dockerfile"
+      # An alternate to the above, using the whole repo as build context, is:
+      # path_to_context: "."  # Path to directory with Dockerfile and context, e.g. "./spades/3.12.0"
+      # dockerfile_name: "./example/3.12.0/Dockerfile"
       cache: "example"  # Use the program name as a nickname for a GitHub cache of your image's layers, e.g. "spades". The cache will speed up re-running the workflow.
