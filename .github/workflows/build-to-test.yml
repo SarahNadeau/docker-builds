@@ -21,8 +21,13 @@ jobs:
   build_to_test:
     runs-on: ubuntu-20.04
     steps:
-      - name: Check Out Repo
+      - name: Check Out Repo (+ download Git LFS dependencies)
         uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Checkout LFS objects
+        run: git lfs checkout
 
       - name: Set up Docker Buildx
         id: buildx

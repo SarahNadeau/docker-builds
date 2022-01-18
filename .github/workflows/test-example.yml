@@ -12,7 +12,7 @@ jobs:
 
   # This job calls a workflow to build the image to the 'test' stage 
   build-to-test:
-    uses: SarahNadeau/bioinf-containers/.github/workflows/build-to-test.yml@master  # TODO: change to pull the workflow from StaPH-B as soon as it is available there
+    uses: SarahNadeau/docker-builds/.github/workflows/build-to-test.yml@sarah-dev  # TODO: change to pull the workflow from StaPH-B as soon as it is available there
     with:
       path_to_context: "./example/3.12.0"  # Path to directory with Dockerfile and context, e.g. "./spades/3.12.0"
       dockerfile_name: "Dockerfile"
