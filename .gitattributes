@@ -1,3 +1,5 @@
 mash/RefSeqSketchesDefaults.msh filter=lfs diff=lfs merge=lfs -text
 test_data/SRR5481494_sub_1.fastq.gz filter=lfs diff=lfs merge=lfs -text
 test_data/SRR5481494_sub_2.fastq.gz filter=lfs diff=lfs merge=lfs -text
+test_data/trim_reads/SRR5481494_sub-noPhiX-R1.fsq.gz filter=lfs diff=lfs merge=lfs -text
+test_data/trim_reads/SRR5481494_sub-noPhiX-R2.fsq.gz filter=lfs diff=lfs merge=lfs -text

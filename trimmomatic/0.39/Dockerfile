@@ -1,5 +1,5 @@
 #use ubuntu as base image
-FROM ubuntu:xenial
+FROM ubuntu:xenial as app
 
 # metadata
 LABEL base.image="ubuntu:xenial"
@@ -36,3 +36,18 @@ ENV PATH="${PATH}:/Trimmomatic-0.39/"
 # create /data directory and set as working directory
 RUN mkdir /data
 WORKDIR /data
+
+FROM app as test
+
+# Get test dependencies
+RUN apt-get update && apt-get install -y python3
+COPY trimmomatic/0.39/tests /tests
+COPY test_data/trim_reads/SRR5481494_sub-noPhiX-R*.fsq.gz /test_data/trim_reads/
+
+# Run positive control
+RUN bash /tests/scripts/run_positive_control.sh
+
+# Check output
+RUN python3 -m unittest discover -s /tests
+
+# Test with: docker build --progress=plain --target=test -t trimmomatic-test-image -f trimmomatic/0.39/Dockerfile .

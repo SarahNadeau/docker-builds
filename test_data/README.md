@@ -8,6 +8,6 @@ Here, the raw reads are downsampled from the original 106x to approximately 60x 
 
 It will have files from each stage of this pipeline:
 * raw reads (run SRR5481494)
-* remove PhiX reads
-* remove sequencing adapters, quality-trim reads
+* remove PhiX reads (done in bbtools image test, see [here](../bbtools))
+* remove sequencing adapters, quality-trim reads (done in trimmomatic image test, see [here](../trimmomatic))
 * reference assembly
