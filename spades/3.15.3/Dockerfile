@@ -1,7 +1,8 @@
-FROM ubuntu:xenial
-
 # to make it easier to upgrade for new versions; ARG variables only persist during docker image build time
 ARG SPAdesVer=3.15.3
+
+FROM ubuntu:xenial as app
+ARG SPAdesVer
 
 LABEL base.image="ubuntu:xenial"
 LABEL dockerfile.version="1"
@@ -30,3 +31,20 @@ ENV LC_ALL=C \
     PATH="${PATH}:/SPAdes-${SPAdesVer}-Linux/bin"
 
 WORKDIR /data
+
+FROM app as test
+ARG SPAdesVer
+
+# Get test dependencies
+RUN apt-get update && apt-get install -y python3
+COPY spades/$SPAdesVer/tests /tests
+COPY test_data/trim_reads/SRR5481494_sub.extendedFrags.fastq.gz /test_data/trim_reads/
+COPY test_data/trim_reads/SRR5481494_sub.notCombined_*.fastq.gz /test_data/trim_reads/
+
+# Run positive control
+RUN bash /tests/scripts/run_positive_control.sh
+
+# Check output
+RUN python3 -m unittest discover -s /tests
+
+# Test with: docker build --progress=plain --target=test -t spades-test-image -f spades/3.15.3/Dockerfile --build-arg RAMSIZE_TOT=2 .
