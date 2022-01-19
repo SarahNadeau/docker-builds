@@ -1,0 +1,12 @@
+  3.13	94	94	U	0	unclassified
+ 96.87	2906	0	R	1	root
+ 96.87	2906	0	R1	131567	  cellular organisms
+ 96.87	2906	3	D	2	    Bacteria
+ 96.77	2903	4	P	1224	      Proteobacteria
+ 96.63	2899	5	C	1236	        Gammaproteobacteria
+ 96.47	2894	2	O	72274	          Pseudomonadales
+ 96.40	2892	0	F	468	            Moraxellaceae
+ 96.40	2892	45	G	475	              Moraxella
+ 94.83	2845	2837	S	480	                Moraxella catarrhalis
+  0.27	8	8	S1	1236608	                  Moraxella catarrhalis BBH18
+  0.07	2	2	S	478	                Moraxella nonliquefaciens

@@ -1,0 +1,16 @@
+ 11.40	342	342	U	0	unclassified
+ 88.60	2658	0	-	1	root
+ 88.60	2658	0	-	131567	  cellular organisms
+ 88.60	2658	3	D	2	    Bacteria
+ 88.50	2655	5	P	1224	      Proteobacteria
+ 88.33	2650	4	C	1236	        Gammaproteobacteria
+ 88.07	2642	0	O	72274	          Pseudomonadales
+ 88.07	2642	3	F	468	            Moraxellaceae
+ 87.97	2639	13	G	475	              Moraxella
+ 87.47	2624	2576	S	480	                Moraxella catarrhalis
+  1.60	48	48	-	1236608	                  Moraxella catarrhalis BBH18
+  0.07	2	2	S	386891	                Moraxella bovoculi
+  0.13	4	0	O	135625	          Pasteurellales
+  0.13	4	0	F	712	            Pasteurellaceae
+  0.13	4	0	G	75984	              Mannheimia
+  0.13	4	4	S	75985	                Mannheimia haemolytica
