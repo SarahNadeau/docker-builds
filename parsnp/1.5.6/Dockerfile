@@ -13,7 +13,10 @@ ARG RAXML_VER="8.2.12"
 ARG FASTTREE_VER="2.1.11"
 ARG MASH_VER="2.3"
 
+<<<<<<< HEAD
 # Metadata
+=======
+>>>>>>> add parsnp image with built-in tests
 LABEL base.image="ubuntu:xenial"
 LABEL software="ParSNP"
 LABEL software.version=${PARSNP_VER}

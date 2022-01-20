@@ -35,7 +35,6 @@ class TestPositiveControl(unittest.TestCase):
         print("Robinson-Foulds distance between FastTree tree and RAxML tree is: " + rf_dist)
         self.assertLessEqual(float(rf_dist), 0.5)
 
-
 class TestNegativeControl(unittest.TestCase):
     # Run this once to have the outputs for all tests
     @classmethod

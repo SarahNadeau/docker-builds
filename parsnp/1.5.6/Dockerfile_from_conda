@@ -1,0 +1,40 @@
+FROM ubuntu:xenial as base
+
+ENV PATH="/root/miniconda3/bin:${PATH}"
+ARG PATH="/root/miniconda3/bin:${PATH}"
+ARG PARSNP_VER=1.5.6
+
+# Update package index
+RUN apt-get update && apt-get upgrade
+RUN apt-get install -y wget
+
+# Install miniconda
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && mkdir /root/.conda \
+    && bash Miniconda3-latest-Linux-x86_64.sh -b \
+    && rm -f Miniconda3-latest-Linux-x86_64.sh
+
+# Install bioconda
+RUN conda config --add channels defaults \
+    && conda config --add channels bioconda \
+    && conda config --add channels conda-forge
+
+# Install parsnp in conda environment
+RUN conda create -n parsnp python=3.7 parsnp=$PARSNP_VER
+
+FROM base as test
+
+# TODO: implment tests
+RUN conda run -n parsnp parsnp --version
+
+FROM base as app
+
+RUN mkdir data
+WORKDIR data/
+
+# Test with: docker build --target test --progress=plain -t parsnp-conda-test -f Dockerfile_from_conda .
+# Build with: docker build -t parsnp-conda -f Dockerfile_from_conda .
+# Run with: docker run parsnp conda run -n parsnp parsnp --version
+
+# Example run: cd ~/Downloads; docker run --rm -v $PWD:/data parsnp-conda conda run -n parsnp parsnp -r ./strep31/NC_011900.fna -d ./strep31
