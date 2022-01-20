@@ -10,4 +10,5 @@ It will have files from each stage of this pipeline:
 * raw reads (run SRR5481494)
 * remove PhiX reads (done in bbtools image test, see [here](../bbtools))
 * remove sequencing adapters, quality-trim reads (done in trimmomatic image test, see [here](../trimmomatic))
+* merge overlapping paired-end reads (done in flash image test, see [here](../flash))
 * reference assembly

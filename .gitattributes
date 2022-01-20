@@ -7,3 +7,6 @@ test_data/trim_reads/SRR5481494_sub_R1.unpaired.fq.gz filter=lfs diff=lfs merge=
 test_data/trim_reads/SRR5481494_sub_R2.paired.fq.gz filter=lfs diff=lfs merge=lfs -text
 test_data/trim_reads/SRR5481494_sub_R2.unpaired.fq.gz filter=lfs diff=lfs merge=lfs -text
 test_data/trim_reads/SRR5481494_sub_R1.paired.fq.gz filter=lfs diff=lfs merge=lfs -text
+test_data/trim_reads/SRR5481494_sub.extendedFrags.fastq.gz filter=lfs diff=lfs merge=lfs -text
+test_data/trim_reads/SRR5481494_sub.notCombined_1.fastq.gz filter=lfs diff=lfs merge=lfs -text
+test_data/trim_reads/SRR5481494_sub.notCombined_2.fastq.gz filter=lfs diff=lfs merge=lfs -text
