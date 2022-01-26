@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:xenial as app
 
 ARG PROKKA_VER="1.14.5"
 
@@ -82,3 +82,17 @@ ENV LC_ALL=C
 # index dbs and list what dbs were setup; set working dir to /data
 RUN prokka --setupdb && prokka --listdb
 WORKDIR /data
+
+FROM app as test
+
+# Get test dependencies
+RUN apt-get update && apt-get install -y python3
+COPY prokka/1.14.5/tests /tests
+RUN mkdir -p /test_data/asm
+COPY test_data/asm/SRR5481494_sub.fasta /test_data/asm/
+
+# Run positive control
+RUN bash /tests/scripts/run_positive_control.sh
+
+# Check output
+RUN python3 -m unittest discover -s /tests

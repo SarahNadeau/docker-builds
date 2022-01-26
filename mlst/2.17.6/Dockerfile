@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:bionic as app
 
 LABEL base.image="ubuntu:bionic"
 LABEL version="1.0.0"
@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y wget \
  file
 
 # get blast 2.9 binaries
-RUN wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.9.0+-x64-linux.tar.gz && \
+RUN wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.9.0/ncbi-blast-2.9.0+-x64-linux.tar.gz && \
  tar -xzf ncbi-blast-2.9.0+-x64-linux.tar.gz && \
  rm ncbi-blast-2.9.0+-x64-linux.tar.gz
 
@@ -47,3 +47,18 @@ WORKDIR /data
 ### If you have an assembly named contigs.fasta in your PWD:
 # $ docker run -v ${PWD}:/data staphb/mlst:2.16.2 \
 #   mlst contigs.fasta >mlst-results.tsv
+
+FROM app as test
+
+# Get test dependencies
+RUN apt-get update && apt-get install -y python3
+COPY mlst/2.17.6/tests /tests
+RUN mkdir -p /test_data/asm
+# Copy assembly
+COPY test_data/asm/SRR5481494_sub.fasta /test_data/asm/
+
+# Run positive control
+RUN bash /tests/scripts/run_positive_control.sh
+
+# Check output
+RUN python3 -m unittest discover -s /tests

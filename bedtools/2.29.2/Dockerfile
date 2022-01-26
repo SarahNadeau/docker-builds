@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:bionic as app
 
 LABEL base.image="ubuntu:bionic"
 LABEL dockerfile.version="1"
@@ -25,3 +25,18 @@ RUN cd /usr/local/bin && \
  mkdir /data
 
 WORKDIR /data
+
+FROM app as test
+
+# Get test dependencies
+RUN apt-get update && apt-get install -y python3
+COPY bedtools/2.29.2/tests /tests
+RUN mkdir -p /test_data/asm
+# Copy alignments
+COPY test_data/asm/SRR5481494_sub.*.bam /test_data/asm/
+
+# Run positive control
+RUN bash /tests/scripts/run_positive_control.sh
+
+# Check output
+RUN python3 -m unittest discover -s /tests

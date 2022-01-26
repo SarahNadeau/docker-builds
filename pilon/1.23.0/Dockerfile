@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:xenial as app
 
 # metadata
 LABEL base.image="ubuntu:xenial"
@@ -31,3 +31,18 @@ ENV PATH="${PATH}:/pilon"
 
 # set perl locale settings
 ENV LC_ALL=C
+
+FROM app as test
+
+# Get test dependencies
+RUN apt-get update && apt-get install -y python3
+COPY pilon/1.23.0/tests /tests
+RUN mkdir -p /test_data/asm
+COPY test_data/asm/contigs.fasta /test_data/asm/SRR5481494_sub.uncorrected.fna
+COPY test_data/asm/SRR5481494_sub.paired.bam* /test_data/asm
+
+# Run positive control
+RUN bash /tests/scripts/run_positive_control.sh
+
+# Check output
+RUN python3 -m unittest discover -s /tests

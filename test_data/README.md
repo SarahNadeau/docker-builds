@@ -2,7 +2,7 @@
 
 This directory contains test data for bioinformatics tools.
 
-It will have genomic data from [Moraxella catarrhalis](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=480) produced by [Kozyreva et al. 2017](https://doi.org/10.1128/JCM.00361-17). 
+It will have genomic data from [Moraxella catarrhalis](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&id=480) strain C53 (sequence type 98) produced by [Kozyreva et al. 2017](https://doi.org/10.1128/JCM.00361-17). 
 The data was previously used to validate Illumina whole-genome sequencing for CLIA compliance.
 Here, the raw reads are sub-sampled from the original 106x to approximately 60x coverage to reduce file sizes.
 
