@@ -1,0 +1,4 @@
+##gff-version 3
+NODE_14_length_5733_cov_47.602390_pilon	barrnap:0.8	rRNA	274	1798	0	+	.	Name=16S_rRNA;product=16S ribosomal RNA
+NODE_14_length_5733_cov_47.602390_pilon	barrnap:0.8	rRNA	3088	5454	0	+	.	Name=23S_rRNA;product=23S ribosomal RNA (partial);note=aligned only 73 percent of the 23S ribosomal RNA
+NODE_14_length_5733_cov_47.602390_pilon	barrnap:0.8	rRNA	5568	5676	6.1e-14	+	.	Name=5S_rRNA;product=5S ribosomal RNA

@@ -38,10 +38,12 @@ RUN make && cp -r ./bin/* /usr/local/bin/
 WORKDIR /
 RUN wget https://github.com/tseemann/barrnap/archive/refs/tags/$BARRNAP_VER.tar.gz
 RUN tar -xvf $BARRNAP_VER.tar.gz && rm $BARRNAP_VER.tar.gz
-RUN cp /barrnap-$BARRNAP_VER/bin/barrnap /usr/local/bin/barrnap
+RUN mv /barrnap-$BARRNAP_VER/bin/barrnap /usr/local/bin/
+RUN mv /barrnap-$BARRNAP_VER/db /usr/local/db
 
 FROM ubuntu:xenial as app
 
+# Copy executables and barrnap database
 COPY --from=builder /usr/ /usr/
 
 RUN mkdir /data/
@@ -49,7 +51,14 @@ WORKDIR /data
 
 FROM app as test
 
+# Get test dependencies
 RUN apt-get update && apt-get install -y python3
-
 COPY barrnap/0.8/tests /tests
-RUN python3 -m unittest discover -v -s /tests
+RUN mkdir -p /test_data/asm
+COPY test_data/asm/SRR5481494_sub.fasta /test_data/asm/
+
+# Run positive control
+RUN bash /tests/scripts/run_positive_control.sh
+
+# Check output
+RUN python3 -m unittest discover -s /tests

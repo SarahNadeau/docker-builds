@@ -16,7 +16,7 @@ jobs:
 
   build-to-deploy:
     needs: build-to-test  # this jobs needs to run serially, after testing succeeds
-    uses: ./.github/workflows/build-to-test.yml
+    uses: ./.github/workflows/build-to-deploy.yml
     with:
       path_to_context: "."
       dockerfile_name: "./flash/1.2.11/Dockerfile"
@@ -29,6 +29,6 @@ jobs:
 
   run-singularity:
     needs: build-to-deploy  # test singularity run on newly pushed Docker image
-    uses: ./.github/workflows/build-to-test.yml
+    uses: ./.github/workflows/run-singularity.yml
     with:
       dockerhub_image: "snads/flash:1.2.11"
