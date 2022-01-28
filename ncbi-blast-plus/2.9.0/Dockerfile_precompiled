@@ -31,7 +31,7 @@ FROM app as test
 RUN apt-get update && apt-get install -y python3
 COPY "ncbi-blast-plus"/2.9.0/tests /tests
 RUN mkdir -p /test_data/ssu
-COPY test_data/ssu/16S.SRR5481494_sub.fna /test_data/ssu/
+COPY test_data/assembly/ssu/16S.SRR5481494_sub.fna /test_data/ssu/
 
 # Download blast database
 RUN bash /tests/scripts/download_db.sh

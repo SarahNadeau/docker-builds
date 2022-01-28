@@ -47,7 +47,7 @@ FROM app as test
 RUN apt-get update && apt-get install -y python3
 COPY bbtools/38.94/tests /tests
 RUN mkdir /test_data
-COPY test_data/*_sub*.fastq.gz /test_data/
+COPY test_data/assembly/*_sub*.fastq.gz /test_data/
 
 # Run positive control
 RUN bash /tests/scripts/run_positive_control.sh

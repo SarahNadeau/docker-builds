@@ -45,11 +45,11 @@ RUN apt-get update && apt-get install -y python3
 COPY samtools/1.9/tests /tests
 RUN mkdir -p /test_data/asm
 # Copy reference genomes
-COPY test_data/asm/contigs.fasta /test_data/asm/SRR5481494_sub.uncorrected.fna
-COPY test_data/asm/SRR5481494_sub.fasta /test_data/asm/
+COPY test_data/assembly/asm/contigs.fasta /test_data/asm/SRR5481494_sub.uncorrected.fna
+COPY test_data/assembly/asm/SRR5481494_sub.fasta /test_data/asm/
 # Copy alignments
-COPY test_data/asm/SRR5481494_sub.paired.sam /test_data/asm
-COPY test_data/asm/SRR5481494_sub.single.sam /test_data/asm
+COPY test_data/assembly/asm/SRR5481494_sub.paired.sam /test_data/asm
+COPY test_data/assembly/asm/SRR5481494_sub.single.sam /test_data/asm
 
 # Run positive control
 RUN bash /tests/scripts/run_positive_control.sh

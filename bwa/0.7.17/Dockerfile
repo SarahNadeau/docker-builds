@@ -36,13 +36,13 @@ COPY bwa/0.7.17/tests /tests
 RUN mkdir -p /test_data/asm && mkdir -p /test_data/trim_reads
 
 # Copy uncorrected assembly
-COPY test_data/asm/contigs.fasta /test_data/asm/SRR5481494_sub.uncorrected.fna
+COPY test_data/assembly/asm/contigs.fasta /test_data/asm/SRR5481494_sub.uncorrected.fna
 # Copy corrected assembly
-COPY test_data/asm/SRR5481494_sub.fasta /test_data/asm/
+COPY test_data/assembly/asm/SRR5481494_sub.fasta /test_data/asm/
 # Copy read files (pairs, merged pairs, and singles)
-COPY test_data/trim_reads/SRR5481494_sub.notCombined_*.fastq.gz /test_data/trim_reads/
-COPY test_data/trim_reads/SRR5481494_sub.extendedFrags.fastq.gz /test_data/trim_reads/
-COPY test_data/trim_reads/SRR5481494_sub_R*.unpaired.fq.gz /test_data/trim_reads/
+COPY test_data/assembly/trim_reads/SRR5481494_sub.notCombined_*.fastq.gz /test_data/trim_reads/
+COPY test_data/assembly/trim_reads/SRR5481494_sub.extendedFrags.fastq.gz /test_data/trim_reads/
+COPY test_data/assembly/trim_reads/SRR5481494_sub_R*.unpaired.fq.gz /test_data/trim_reads/
 
 # Run positive control
 RUN bash /tests/scripts/run_positive_control.sh

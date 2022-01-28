@@ -42,7 +42,7 @@ FROM app as test
 # Get test dependencies
 RUN apt-get update && apt-get install -y python3
 COPY trimmomatic/0.39/tests /tests
-COPY test_data/trim_reads/SRR5481494_sub-noPhiX-R*.fsq.gz /test_data/trim_reads/
+COPY test_data/assembly/trim_reads/SRR5481494_sub-noPhiX-R*.fsq.gz /test_data/trim_reads/
 
 # Run positive control
 RUN bash /tests/scripts/run_positive_control.sh

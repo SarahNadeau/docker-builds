@@ -1,4 +1,4 @@
-test_data/asm/outdir_parsnp
-test_data/asm/quast_report.html
+test_data/assembly/asm/outdir_parsnp
+test_data/assembly/asm/quast_report.html
 .idea/
 docs/_site/*
