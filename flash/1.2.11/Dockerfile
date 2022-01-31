@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y \
     bc \
     python3
 COPY flash/$FLASH_VER/tests /tests
-COPY test_data/trim_reads/SRR5481494_sub_R*.paired.fq.gz /test_data/trim_reads/
+COPY test_data/assembly/trim_reads/SRR5481494_sub_R*.paired.fq.gz /test_data/trim_reads/
 
 # Run positive control
 RUN bash /tests/scripts/run_positive_control.sh
