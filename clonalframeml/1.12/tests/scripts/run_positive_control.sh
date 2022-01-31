@@ -15,16 +15,8 @@ ClonalFrameML \
   $O/"$B" \
   -xmfa_file true
 
-#echo "Running ClonalFrameML on test data in FastA format"
-#ClonalFrameML \
-#  $I/"$B".tree \
-#  $I/"$B".fasta \
-#  $O/"$B"_fasta
-
 echo "Generating PDF output"
 cd $O
 Rscript /ClonalFrameML/src/cfml_results.R "$B"
-#Rscript /ClonalFrameML/src/cfml_results.R "$B"_fasta
 
 sha256sum $O/"$B".cfml.pdf > $O/"$B".cfml.pdf.checksum
-#sha256sum $O/"$B".single.sam > $O/"$B".single.sam.checksum

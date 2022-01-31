@@ -60,10 +60,9 @@ COPY clonalframeml/1.12/tests /tests
 # Copy test data
 COPY test_data/alignment/aln/parsnp.tree /test_data/
 COPY test_data/alignment/aln/parsnp.xmfa /test_data/
-COPY test_data/alignment/aln/core_genome.fasta /test_data/parsnp.fasta
 
 # Run positive control
 RUN bash /tests/scripts/run_positive_control.sh
 
 # Check output
-#RUN python3 -m unittest discover -s /tests
+RUN python3 -m unittest discover -s /tests
