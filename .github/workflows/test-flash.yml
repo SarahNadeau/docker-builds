@@ -6,7 +6,7 @@ jobs:
 
   # This job calls a workflow to build the image to the 'test' stage 
   build-to-test:
-    uses: SarahNadeau/docker-builds/.github/workflows/build-to-test.yml@sarah-dev  # TODO: change to pull the workflow from StaPH-B as soon as it is available there
+    uses: ./.github/workflows/build-to-test.yml
     with:
       path_to_context: "."
       dockerfile_name: "flash/1.2.11/Dockerfile"
