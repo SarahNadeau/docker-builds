@@ -20,3 +20,4 @@ test_data/assembly/asm/SRR5481494_sub.paired.sam filter=lfs diff=lfs merge=lfs -
 test_data/assembly/asm/SRR5481494_sub.single.sam filter=lfs diff=lfs merge=lfs -text
 test_data/alignment/aln/parsnp.fasta.gz filter=lfs diff=lfs merge=lfs -text
 test_data/alignment/aln/parsnp.xmfa.gz filter=lfs diff=lfs merge=lfs -text
+test_data/assembly/snps/whole_genome_alignment.fasta.gz filter=lfs diff=lfs merge=lfs -text

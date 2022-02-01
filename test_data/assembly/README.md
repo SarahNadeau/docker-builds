@@ -31,3 +31,7 @@ This directory contains:
 `ssu` contains:
 * rRNA sequences, including 16S, extracted from assembled genome (done in Barrnap image test)
 * BLAST hits from extracted 16S sequence (done in NCBI-blast+ image test)
+
+`snps` contains:
+* .ggr output from running ParSNP v 1.5.6 on the reference assembly and corrected genome
+* SNP and whole-genome alignments (concatenated locally co-linear blocks) output by ParSNP
