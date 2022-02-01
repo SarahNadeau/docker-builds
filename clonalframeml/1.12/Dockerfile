@@ -59,7 +59,9 @@ COPY clonalframeml/1.12/tests /tests
 
 # Copy test data
 COPY test_data/alignment/aln/parsnp.tree /test_data/
-COPY test_data/alignment/aln/parsnp.xmfa /test_data/
+COPY test_data/alignment/aln/parsnp.xmfa.gz /test_data/
+COPY test_data/alignment/aln/parsnp.fasta.gz /test_data/
+RUN gunzip /test_data/parsnp.fasta.gz && gunzip /test_data/parsnp.xmfa.gz
 
 # Run positive control
 RUN bash /tests/scripts/run_positive_control.sh

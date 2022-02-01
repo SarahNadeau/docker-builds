@@ -11,6 +11,18 @@ B=parsnp
 echo "Running ClonalFrameML on test data in XMFA format"
 ClonalFrameML \
   $I/"$B".tree \
+  $I/"$B".fasta \
+  $O/"$B"_fa
+
+echo "Generating PDF output"
+cd $O
+Rscript /ClonalFrameML/src/cfml_results.R "$B"_fa
+
+sha256sum $O/"$B"_fa.importation_status.txt > $O/"$B"_fa.importation_status.txt.checksum
+
+echo "Running ClonalFrameML on test data in XMFA format"
+ClonalFrameML \
+  $I/"$B".tree \
   $I/"$B".xmfa \
   $O/"$B" \
   -xmfa_file true
@@ -19,4 +31,4 @@ echo "Generating PDF output"
 cd $O
 Rscript /ClonalFrameML/src/cfml_results.R "$B"
 
-sha256sum $O/"$B".cfml.pdf > $O/"$B".cfml.pdf.checksum
+sha256sum $O/"$B".importation_status.txt > $O/"$B".importation_status.txt.checksum

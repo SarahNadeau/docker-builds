@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# This script corrects the headers in an XMFA alignment file to match file names from prefix.
-# It was motivated by ClonalFrameML needing treefile sequence names to match XMFA headers.
+# This script corrects the headers in an XMFA alignment file to have numeric labels and the sequence name in the comment field.
+# It was motivated by Lee Katz's convertAlignment.pl script needing a particular input XMFA format.
 # $1=filename; $2=outfile
 
 # Usage
 usage() {
   echo "
+Correct the headers in an XMFA alignment file to have numeric labels and the sequence name in the comment field.
 Usage: ${0##*/} InputFile [OutputFile] [-h|--help]
 Required:
   <InputFile>        An XMFA-formatted alignment file.
@@ -31,6 +32,7 @@ if [ -z "$2" ]; then
 else
   O=$2
 fi
+rm -f $O
 cp $1 $O
 
 # Read through XMFA prefix block, replacing headers for each SequenceFile name
@@ -39,16 +41,14 @@ while read p; do
   if echo "$p" | grep -q "^##SequenceFile"; then
     i=$((i + 1))
     FILENAME=$( echo "$p" | awk '{print $2}' )
-    echo "
-    Original:
-      >$i:
-    Replacement:
-      >$FILENAME:"
-    sed -i.bak "s/>$i:/>$FILENAME:/g" $O
+    echo "Standardizing entries for: $FILENAME"
+    # Put the sequence name in the header comment field
+    awk -v f="$FILENAME" -v i="$i" '{if ($1~f) gsub($3,f); print}' $O > $O.tmp && mv $O.tmp $O
+    # If label is sequence name, change to be numeric index
+    sed -i.bak "s/^>$FILENAME:/>$i:/g" $O
   elif ! echo "$p" | grep -q "^#"; then
     break
   fi
 done < $1
 
-# Remove temporary sed backup file
 rm $O.bak

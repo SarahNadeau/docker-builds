@@ -1,0 +1,9 @@
+FROM perl
+
+# Install dependency
+RUN cpanm Bio::AlignIO
+
+# Copy in script
+COPY convertAlignment.pl /
+
+ENTRYPOINT [ "perl", "convertAlignment.pl" ]
