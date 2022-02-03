@@ -1,0 +1,16 @@
+All statistics are based on contigs of size >= 100 bp, unless otherwise noted (e.g., "# contigs (>= 0 bp)" and "Total length (>= 0 bp)" include all contigs).
+
+Assembly                   SRR5481494_sub
+# contigs (>= 500 bp)      18            
+# contigs (>= 1000 bp)     17            
+Total length (>= 500 bp)   1881735       
+Total length (>= 1000 bp)  1880983       
+# contigs                  25            
+Largest contig             427314        
+Total length               1884008       
+GC (%)                     41.55         
+N50                        339046        
+N75                        133598        
+L50                        3             
+L75                        6             
+# N's per 100 kbp          0.00          

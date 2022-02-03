@@ -22,8 +22,9 @@ This directory contains:
 * corrected genome (SRR5481494_sub.fasta) with changes (SRR5481494_sub.changes) (done in Pilon image test, note there were actually no changes)
 
 `qa` contains:
-* genome coverage (done in BEDTools image test)
-* Multi-locus sequence typing results (done in MLST image test)
+* genome coverage (Summary.Illumina.CleanedReads-AlnStats.tab, done in BEDTools image test)
+* Multi-locus sequence typing results (Summary.MLST.tab, done in MLST image test)
+* Assembly quality statistics (report.txt, done in QUAST image test)
 
 `annot` contains:
 * genome annotation (done in Prokka image test)

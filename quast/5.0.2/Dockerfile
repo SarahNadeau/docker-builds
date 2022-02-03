@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:xenial as app
 
 # For easy upgrade. ARG variables only persist during image build time, not available when running the container
 ARG QUAST_VER=5.0.2
@@ -49,3 +49,19 @@ RUN wget https://github.com/ablab/quast/releases/download/quast_${QUAST_VER}/qua
     mkdir /data
 
 WORKDIR /data
+
+FROM app as test
+
+# Get test dependencies
+RUN apt-get update && apt-get install -y python3
+COPY quast/5.0.2/tests /tests
+COPY test_data/assembly/asm/SRR5481494_sub.fasta /test_data/asm/
+
+# Check that tutorial data included in QUAST runs
+RUN bash /tests/scripts/run_tutorial_data.sh
+
+# Run positive control
+RUN bash /tests/scripts/run_positive_control.sh
+
+# Check output
+RUN python3 -m unittest discover -s /tests
