@@ -16,7 +16,9 @@ This directory contains:
   * [./scripts/convertAlignment.pl](./scripts/convertAlignment.pl) written by Lee Katz,
   * [./scripts/standardize_fasta_headers.sh](./scripts/standardize_fasta_headers.sh)).
 
-`recombination` contains files from ClonalFrameML image test:
+`recombination` contains files from ClonalFrameML and Gubbins image tests:
 * files named like parsnp_fa were generated using parsnp.fasta from above, otherwise files were generated using parsnp.xmfa from above
-* parsnp*.importation_status.txt contains (quoting from manual) the list of reconstructed recombination events. There is one line for each event, the first column indicates the branch on which the event was found, and the second and third columns indicate the first and last genomic positions affected by the recombination event.
+* parsnp*.importation_status.txt contains the list of reconstructed recombination events from ClonalFrameML.
 * parsnp*.labelled_tree.newick contains the ClonalFrameML output tree (branch lengths corrected to account for recombination).
+* parsnp.recombination_predictions.gff contains the list of reconstructed recombination events from Gubbins.
+* parsnp.node_labelled.final_tree.tre contains the Gubbins output tree (constructed with recombination regions removed).

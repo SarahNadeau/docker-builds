@@ -1,0 +1,6 @@
+##gff-version 3
+##sequence-region SEQUENCE 1 4784716
+SEQUENCE	GUBBINS	CDS	4404288	4404323	0.000	.	0	node="Node_2->2014C-3599";neg_log_likelihood="13.348035";taxa="2014C-3599";snp_count="6";
+SEQUENCE	GUBBINS	CDS	3686236	3686422	0.000	.	0	node="Node_4->2011C-3609.ref";neg_log_likelihood="346.797877";taxa="2011C-3609.ref";snp_count="20";
+SEQUENCE	GUBBINS	CDS	469785	469935	0.000	.	0	node="Node_4->2011C-3609.ref";neg_log_likelihood="257.783415";taxa="2011C-3609.ref";snp_count="17";
+SEQUENCE	GUBBINS	CDS	4404288	4404323	0.000	.	0	node="Node_6->2014C-3656";neg_log_likelihood="32.282216";taxa="2014C-3656";snp_count="6";
