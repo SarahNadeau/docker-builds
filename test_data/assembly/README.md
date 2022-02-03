@@ -9,6 +9,8 @@ Here, the raw reads are randomly sub-sampled from the original 106x to approxima
 This directory contains:
 * sub-sampled raw reads (run SRR5481494, see [./scripts/get_reads.sh](./scripts/get_reads.sh))
 * reference assembly (assembly GCF_001997265.1)
+* reference assembly proteins as annotated by NCBI (GCF_001997265.1_ASM199726v1_protein.faa)
+* reference assembly proteins as annotated by Prokka (GCF_001997265.1.faa, Prokka run with same settings as in Prokka image test)
 
 `trim_reads` contains:
 * reads with PhiX removed (done in BBTools image test)
@@ -28,6 +30,7 @@ This directory contains:
 
 `annot` contains:
 * genome annotation (done in Prokka image test)
+* putative protein sequences (SRR5481494_sub.faa, from Prokka image test)
 
 `ssu` contains:
 * rRNA sequences, including 16S, extracted from assembled genome (done in Barrnap image test)
