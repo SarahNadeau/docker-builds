@@ -1,0 +1,4 @@
+Node    Beg End
+A   2   3
+A   5   6
+E   5   9

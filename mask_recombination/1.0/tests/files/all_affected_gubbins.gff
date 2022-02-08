@@ -1,0 +1,6 @@
+##gff-version 3
+##sequence-region SEQUENCE 1 11
+SEQUENCE	GUBBINS	CDS	2	3	0.000	.	0	node="F->A";neg_log_likelihood="13.348035";taxa="A";snp_count="1";
+SEQUENCE	GUBBINS	CDS	5	6	0.000	.	0	node="F->A";neg_log_likelihood="13.348035";taxa="A";snp_count="1";
+SEQUENCE	GUBBINS	CDS	5	9	0.000	.	0	node="F->E";neg_log_likelihood="13.348035";taxa="";snp_count="3";
+SEQUENCE	GUBBINS	CDS	1	1	0.000	.	0	node="F->F";neg_log_likelihood="13.348035";taxa="";snp_count="1";
