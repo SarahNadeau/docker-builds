@@ -14,5 +14,11 @@ run_gubbins.py \
   --prefix $O/"$B" \
     $I/"$B".fasta
 
+echo "Generating masked alignment file output"
+mask_gubbins_aln.py \
+  --aln $I/"$B".fasta \
+  --gff $O/"$B".recombination_predictions.gff \
+  --out $O/"$B".masked.aln
+
 sha256sum $O/"$B".recombination_predictions.gff  > $O/"$B".recombination_predictions.gff.checksum
 sha256sum $O/"$B".node_labelled.final_tree.tre > $O/"$B".node_labelled.final_tree.tre.checksum

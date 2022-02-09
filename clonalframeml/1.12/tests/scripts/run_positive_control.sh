@@ -8,11 +8,12 @@ mkdir -p $O
 
 B=parsnp
 
-echo "Running ClonalFrameML on test data in XMFA format"
+echo "Running ClonalFrameML on test data in FastA format"
 ClonalFrameML \
   $I/"$B".tree \
   $I/"$B".fasta \
-  $O/"$B"_fa
+  $O/"$B"_fa \
+  -output_filtered true
 
 echo "Generating PDF output"
 cd $O
