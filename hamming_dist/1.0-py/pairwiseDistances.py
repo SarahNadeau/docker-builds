@@ -15,9 +15,6 @@ def parseArgs():
     )
     parser.add_argument("infile")
     parser.add_argument(
-        "outfile", nargs="?", type=argparse.FileType("w"), default=sys.stdout
-    )
-    parser.add_argument(
         "-n", "--numcpus", type=int, default=1, help="Number of CPUs (default: 1)."
     )
     parser.add_argument(
