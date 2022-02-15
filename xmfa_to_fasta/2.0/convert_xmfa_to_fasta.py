@@ -29,10 +29,11 @@ def main():
     opt = parseArgs()
 
     logmsg("Reading in XMFA alignment.")
-    sequences = get_xmfa_sequences(opt.xmfa)
+    header_replacements = get_headers(opt.xmfa)
     if opt.verbose:
-        logmsg("Sequences:")
-        logmsg(sequences)
+        logmsg("Header replacements:")
+        logmsg(header_replacements)
+    sequences = get_xmfa_sequences(opt.xmfa, header_replacements)
     validate_xmfa(sequences)
 
     logmsg("Writing out FastA alignment.")
@@ -43,16 +44,32 @@ def logmsg(*opt, **kwopt):
     print(*opt, file=sys.stderr, **kwopt)
 
 
+# Replace numeric index headers with ##SequenceName entries
+def get_headers(xmfa_file):
+    _open = partial(gzip.open, mode='rt') if xmfa_file.endswith('.gz') else open
+    header_replacements = {}
+    with _open(xmfa_file) as f:
+        while True:
+            line = f.readline()
+            if re.match("^##SequenceIndex", line):
+                index = line.strip().split()[1]
+            elif re.match("^##SequenceFile", line):
+                header = line.strip().split()[1]
+                header_replacements[">" + index] = ">" + header
+            elif re.match("^>", line):
+                return header_replacements
+
+
 # Parse ParSNP XMFA alignment
 # Returns dictionary with sequence header keys. Values are dictionaries, with cluster name keys and sequence values.
-def get_xmfa_sequences(xmfa_file):
+def get_xmfa_sequences(xmfa_file, header_replacements):
     sequences = {}
     is_first = True
     _open = partial(gzip.open, mode='rt') if xmfa_file.endswith('.gz') else open
     f = _open(xmfa_file)
     for line in f:
         # Ignore comment lines and cluster (locally co-linear block) separator lines
-        if re.match("^#", line) or re.match("^=", line):
+        if re.match("^#", line) or re.match("^=", line) or line == "\n":
             continue
         # Parse sequence information at header line
         elif re.match("^>", line):
@@ -67,6 +84,8 @@ def get_xmfa_sequences(xmfa_file):
             parsed_line = line.strip().split()
             cluster = parsed_line[2]
             header = parsed_line[0].split(":")[0]
+            if header not in header_replacements.values():  # Do nothing when headers are already filenames
+                header = header_replacements[header]
             sequence = ''
         # Aggregate lines of sequence bases
         else:

@@ -9,19 +9,19 @@
 ##SequenceHeader >AATJFC010000001.1 Escherichia coli strain 2014C-3907 SAMN03098216-rid9075863.denovo.001, whole genome shotgun sequence
 ##SequenceLength 5254273bp
 #IntervalCount 3
->2011C-3609.ref:1019-1226 + cluster29 s1:p1019
+>1:1019-1226 + cluster29 s1:p1019
 ctaaagaaatcctcccaataacctatactatcctgcgtctcaaaccattgattactagtttttttacgagaacctttagc
 tcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
->2014C-3907:4967416-4967623 + cluster29 s85:p3982
+>2:4967416-4967623 + cluster29 s85:p3982
 ctaaagaaatcctcccaataacctatactatcctgcgtctcaaaccattgattactagtttttttacgagaacctttagc
-tcctgattgttctaatctgtggtatccaaatgatataagatgttgt
+tcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
 =
->2011C-3609.ref:1910-2404 + cluster30 s1:p1910
+>1:1910-2404 + cluster30 s1:p1910
 ctaaagaaatcctcccaataacctatactat
->2014C-3907:4968307-4968801 + cluster30 s85:p4873
+>2:4968307-4968801 + cluster30 s85:p4873
 ctaaagaaatcctcccaataacctatactat
 =
->2011C-3609.ref:2616-2946 + cluster31 s1:p2616
+>1:2616-2946 + cluster31 s1:p2616
 gattactagtttttttacgagaacctttagctcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
->2014C-3907:4969013-4969343 + cluster31 s85:p5579
+>2:4969013-4969343 + cluster31 s85:p5579
 gattactagtttttttacgagaacctttagctcctgattgttctaatctgtggtatccaaatgatataagatgttgtt

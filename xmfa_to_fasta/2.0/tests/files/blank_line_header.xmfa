@@ -1,4 +1,5 @@
 #FormatVersion Parsnp v1.1
+
 #SequenceCount 2
 ##SequenceIndex 1
 ##SequenceFile 2011C-3609.ref
@@ -14,7 +15,7 @@ ctaaagaaatcctcccaataacctatactatcctgcgtctcaaaccattgattactagtttttttacgagaacctttagc
 tcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
 >2014C-3907:4967416-4967623 + cluster29 s85:p3982
 ctaaagaaatcctcccaataacctatactatcctgcgtctcaaaccattgattactagtttttttacgagaacctttagc
-tcctgattgttctaatctgtggtatccaaatgatataagatgttgt
+tcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
 =
 >2011C-3609.ref:1910-2404 + cluster30 s1:p1910
 ctaaagaaatcctcccaataacctatactat

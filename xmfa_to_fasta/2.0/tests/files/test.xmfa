@@ -1,13 +1,13 @@
 #FormatVersion Parsnp v1.1
 #SequenceCount 2
 ##SequenceIndex 1
-##SequenceFile 16-090.ref
-##SequenceHeader >16090_1
-##SequenceLength 15bp
+##SequenceFile 2011C-3609.ref
+##SequenceHeader >JASV01000004.1 Escherichia coli O121:H19 str. 2011C-3609 contig4, whole genome shotgun sequence
+##SequenceLength 5412686bp
 ##SequenceIndex 2
-##SequenceFile 16-100
-##SequenceHeader >16-100_1
-##SequenceLength 16bp
+##SequenceFile 2014C-3907
+##SequenceHeader >AATJFC010000001.1 Escherichia coli strain 2014C-3907 SAMN03098216-rid9075863.denovo.001, whole genome shotgun sequence
+##SequenceLength 5254273bp
 #IntervalCount 3
 >2011C-3609.ref:1019-1226 + cluster29 s1:p1019
 ctaaagaaatcctcccaataacctatactatcctgcgtctcaaaccattgattactagtttttttacgagaacctttagc
