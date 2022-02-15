@@ -1,0 +1,30 @@
+#FormatVersion Parsnp v1.1
+#SequenceCount 2
+##SequenceIndex 1
+##SequenceFile 16-090.ref
+##SequenceHeader >16090_1
+##SequenceLength 15bp
+##SequenceIndex 2
+##SequenceFile 16-100
+##SequenceHeader >16-100_1
+##SequenceLength 16bp
+#IntervalCount 3
+>2011C-3609.ref:1019-1226 + cluster29 s1:p1019
+ctaaagaaatcctcccaataacctatactatcctgcgtctcaaaccattgattactagtttttttacgagaacctttagc
+tcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
+>2014C-3907:4967416-4967623 + cluster29 s85:p3982
+ctaaagaaatcctcccaataacctatactatcctgcgtctcaaaccattgattactagtttttttacgagaacctttagc
+tcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
+=
+>2011C-3609.ref:1910-2404 + cluster30 s1:p1910
+ctaaagaaatcctcccaataacctatactat
+>2014C-3907:4968307-4968801 + cluster30 s85:p4873
+ctaaagaaatcctcccaataacctatactat
+=
+>2011C-3609.ref:2616-2946 + cluster31 s1:p2616
+gattactagtttttttacgagaacctttagctcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
+>2014C-3907:4969013-4969343 + cluster31 s85:p5579
+gattactagtttttttacgagaacctttagctcctgattgttctaatctgtggtatccaaatgatataagatgttgtt
+=
+>2011C-3609.ref:2616-2946 + cluster32 s1:p2616
+gattactagtttttttacgagaacctttagctcctgattgttctaatctgtggtatccaaatgatataagatgttgtt

@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/build-to-test.yml
     with:
       path_to_context: "."
-      dockerfile_name: "./xmfa_to_fasta/1.0/Dockerfile"
+      dockerfile_name: "./xmfa_to_fasta/2.0/Dockerfile"
       cache: "xmfa-to-fasta"
 
   build-to-deploy:
@@ -19,10 +19,10 @@ jobs:
     uses: ./.github/workflows/build-to-deploy.yml
     with:
       path_to_context: "."
-      dockerfile_name: "./xmfa_to_fasta/1.0/Dockerfile"
+      dockerfile_name: "./xmfa_to_fasta/2.0/Dockerfile"
       cache: "xmfa-to-fasta"
       container_name: "xmfa-to-fasta"
-      tag: "1.0"
+      tag: "2.0"
     secrets:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -31,4 +31,4 @@ jobs:
     needs: build-to-deploy
     uses: ./.github/workflows/run-singularity.yml
     with:
-      dockerhub_image: "snads/xmfa-to-fasta:1.0"
+      dockerhub_image: "snads/xmfa-to-fasta:2.0"
