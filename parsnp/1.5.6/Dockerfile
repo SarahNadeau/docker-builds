@@ -130,8 +130,6 @@ RUN mkdir data/
 WORKDIR data
 
 FROM app as test
-# IS_GITHUB only applicable for tests run by GitHub action
-ARG IS_GITHUB
 
 # Need wget for pulling test data
 RUN apt-get update && apt-get install -y \
