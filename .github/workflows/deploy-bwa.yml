@@ -6,7 +6,7 @@ jobs:
 
   # This job calls a workflow to build the image to the 'test' stage
   build-to-test:
-    uses: ./.github/workflows/build-to-test.yml
+    uses: StaPH-B/docker-builds/.github/workflows/build-to-test.yml@master
     with:
       path_to_context: "."
       dockerfile_name: "./bwa/0.7.17/Dockerfile"
@@ -15,13 +15,14 @@ jobs:
   # This job calls a workflow to build the image to the 'app' stage and pushes the image to Docker Hub
   build-to-deploy:
     needs: build-to-test
-    uses: ./.github/workflows/build-to-deploy.yml
+    uses: StaPH-B/docker-builds/.github/workflows/build-to-deploy.yml@master
     with:
       path_to_context: "."
       dockerfile_name: "./bwa/0.7.17/Dockerfile"
       cache: "bwa"
       container_name: "bwa"
       tag: "0.7.17"
+      repository_name: "snads"  # TODO: delete upon PR to StaPH-B
     secrets:
       docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
       docker_hub_access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -29,6 +30,7 @@ jobs:
   # This job calls a workflow to pull the image from Docker Hub and test that it can be run as a Singularity container
   run-singularity:
     needs: build-to-deploy
-    uses: ./.github/workflows/run-singularity.yml
+    uses: StaPH-B/docker-builds/.github/workflows/run-singularity.yml@master
     with:
-      dockerhub_image: "snads/bwa:0.7.17"  # TODO: change
+      repository_name: "snads"  # TODO: delete upon PR to StaPH-B
+      image_name: "bwa:0.7.17"
