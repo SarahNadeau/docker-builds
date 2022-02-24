@@ -24,8 +24,8 @@ jobs:
       tag: "0.7.17"
       repository_name: "snads"  # TODO: delete upon PR to StaPH-B
     secrets:
-      docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      docker_hub_access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      docker_username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      docker_access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
   # This job calls a workflow to pull the image from Docker Hub and test that it can be run as a Singularity container
   run-singularity:
