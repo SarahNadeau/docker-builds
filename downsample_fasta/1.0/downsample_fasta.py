@@ -18,19 +18,19 @@ def parseArgs():
         required=True
     )
     parser.add_argument(
-        "--chunk_size",
+        "--chunk-size",
         help="Length of sequence in each chunk.",
         type=int,
         required=True
     )
     parser.add_argument(
-        "--n_chunks",
+        "--n-chunks",
         type=int,
         help="Number of chunks to sample.",
         required=True
     )
     parser.add_argument(
-        "--no_concatenate",
+        "--no-concatenate",
         help="If supplied, # out entries = n_chunks, rather than default # out entries = # in entries.",
         action = 'store_true'
     )
