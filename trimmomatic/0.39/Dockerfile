@@ -41,13 +41,11 @@ FROM app as test
 
 # Get test dependencies
 RUN apt-get update && apt-get install -y python3
-COPY trimmomatic/0.39/tests /tests
-COPY test_data/assembly/trim_reads/SRR5481494_sub-noPhiX-R*.fsq.gz /test_data/trim_reads/
+COPY tests /tests/
 
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
+# Run program on test data
+RUN bash /tests/scripts/get_data_pos_control.sh
+RUN bash /tests/scripts/run_trimmomatic_pos_control.sh
 
-# Check output
+# Verify output
 RUN python3 -m unittest discover -s /tests
-
-# Test with: docker build --progress=plain --target=test -t trimmomatic-test-image -f trimmomatic/0.39/Dockerfile .
