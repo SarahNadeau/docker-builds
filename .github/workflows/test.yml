@@ -4,13 +4,14 @@
 name: Test image changes
 
 on:
-  workflow_dispatch:
+  push:  ### TEMPORARY
   pull_request:
 
 jobs:
 
   # This job calls a workflow to build the image to the 'test' stage
   build-to-test:
+    runs-on: ubuntu-latest
     steps:
 
       # - uses: actions/checkout@v2
