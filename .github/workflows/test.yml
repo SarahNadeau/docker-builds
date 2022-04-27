@@ -28,7 +28,7 @@ jobs:
               CONTEXT_PATHS="$CONTEXT_PATHS $changed_file"
             fi
           done
-          echo "::set-output name=matrix::$CONTEXT_PATHS"
+          echo "::set-output name=matrix::[\"a\", \"b\", \"c\"]"
 
   # This job builds the changed Dockerfiles to the test stage        
   build:
@@ -43,7 +43,7 @@ jobs:
 
 
 # echo '::set-output name=value::[\"a\", \"b\", \"c\"]'
-          # echo "::set-output name=matrix::$(vendor/bin/monorepo-builder packages-json --names)"
+# echo "::set-output name=matrix::$(vendor/bin/monorepo-builder packages-json --names)"
 
     #   - name: Build image(s) to test stage
     #     uses: ./.github/workflows/build-to-test.yml
