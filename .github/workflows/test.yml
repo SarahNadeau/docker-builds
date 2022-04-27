@@ -1,0 +1,56 @@
+# This caller workflow builds an image to the "test" stage.
+# It takes manual input as to which tool and version to test
+
+name: Test image changes
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+
+  # This job calls a workflow to build the image to the 'test' stage
+  build-to-test:
+    steps:
+
+      # - uses: actions/checkout@v2
+      #   with:
+      #     fetch-depth: 0
+
+      - name: Get changed files
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+
+      - name: Print changed files
+        run: |
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done
+
+    #   - name: Build image(s) to test stage
+    #     uses: ./.github/workflows/build-to-test.yml
+    #     with:
+    #       path_to_context: "./${{ github.event.inputs.tool }}/${{ github.event.inputs.version }}"
+    #       cache: "${{ github.event.inputs.tool }}"
+
+
+# Scratch notes
+
+# - name: Extract branch name
+#   shell: bash
+#   run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+#   id: extract_branch
+
+# jobs:
+#   build-to-test:
+#     uses: ./.github/workflows/build-to-test.yml
+#     with:
+#       path_to_context: "./${{ github.event.inputs.tool }}/${{ github.event.inputs.version }}"
+#       cache: "${{ github.event.inputs.tool }}"
+
+# run-check: 
+
+#     if: "contains(github.event.head_commit.message, '[ci]')" 
+
+#     https://stackoverflow.com/questions/58033366/how-to-get-the-current-branch-within-github-actions
+#     https://github.community/t/can-i-process-only-changed-files-with-github-actions/137814
