@@ -26,6 +26,7 @@ jobs:
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [[ ${changed_file} =~ Dockerfile ]]; then
               CONTEXT_PATHS="$CONTEXT_PATHS $changed_file"
+            fi
           done
           echo "::set-output name=matrix::$CONTEXT_PATHS"
 
