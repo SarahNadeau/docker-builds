@@ -25,10 +25,12 @@ jobs:
           CONTEXT_PATHS=""
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [[ ${changed_file} =~ Dockerfile ]]; then
-              CONTEXT_PATHS="$CONTEXT_PATHS $changed_file"
+              CONTEXT_PATHS="\"$CONTEXT_PATHS $changed_file\", "
             fi
           done
-          echo "::set-output name=matrix::[\"a\", \"b\", \"c\"]"
+          CONTEXT_PATHS="\"a\", \"b\", \"c\""
+          echo $CONTEXT_PATHS
+          echo "::set-output name=matrix::[$CONTEXT_PATHS]"
 
   # This job builds the changed Dockerfiles to the test stage        
   build:
