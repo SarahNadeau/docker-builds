@@ -9,24 +9,40 @@ on:
 
 jobs:
 
-  # This job calls a workflow to build the image to the 'test' stage
-  build-to-test:
+  # This job identifes changed Dockerfiles
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-
-      # - uses: actions/checkout@v2
-      #   with:
-      #     fetch-depth: 0
-
       - name: Get changed files
         id: files
         uses: jitterbit/get-changed-files@v1
 
-      - name: Print changed files
+      - name: Get changed Dockerfiles
+        id: set-matrix
         run: |
+          CONTEXT_PATHS=""
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
+            if [[ ${changed_file} =~ Dockerfile ]]; then
+              CONTEXT_PATHS="$CONTEXT_PATHS $changed_file"
           done
+          echo "::set-output name=matrix::$CONTEXT_PATHS"
+
+  # This job builds the changed Dockerfiles to the test stage        
+  build:
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: ${{fromJson(needs.setup.outputs.matrix)}}
+    steps:
+      - run: |
+          echo "${{ matrix.value }}"
+
+
+# echo '::set-output name=value::[\"a\", \"b\", \"c\"]'
+          # echo "::set-output name=matrix::$(vendor/bin/monorepo-builder packages-json --names)"
 
     #   - name: Build image(s) to test stage
     #     uses: ./.github/workflows/build-to-test.yml
