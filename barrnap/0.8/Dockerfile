@@ -1,10 +1,13 @@
-FROM ubuntu:xenial as builder
 
 ARG BARRNAP_VER=0.8
+
+FROM ubuntu:xenial as builder
+ARG BARRNAP_VER
 ARG HMMER_VER=3.3.2
 ARG BEDTOOLS_VER=2.30.0
 
 LABEL base.image="ubuntu:xenial"
+LABEL dockerfile.version="2"
 LABEL software="Barrnap"
 LABEL software.version=${BARRNAP_VER}
 LABEL description="Barrnap: BAsic Rapid Ribosomal RNA Predictor."
@@ -46,19 +49,15 @@ FROM ubuntu:xenial as app
 # Copy executables and barrnap database
 COPY --from=builder /usr/ /usr/
 
+# Re-install wget for pulling in test data
+RUN apt-get update && apt-get install -y wget
+
 RUN mkdir /data/
 WORKDIR /data
 
 FROM app as test
+ARG BARRNAP_VER
 
-# Get test dependencies
-RUN apt-get update && apt-get install -y python3
-COPY barrnap/0.8/tests /tests
-RUN mkdir -p /test_data/asm
-COPY test_data/assembly/asm/SRR5481494_sub.fasta /test_data/asm/
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
+# Run test script
+COPY test.sh .
+RUN bash test.sh $BARRNAP_VER
