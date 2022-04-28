@@ -1,16 +1,19 @@
-FROM ubuntu:xenial as app
-
 ARG PROKKA_VER="1.14.5"
+
+FROM ubuntu:xenial as app
+ARG PROKKA_VER
 
 LABEL base.image="ubuntu:xenial"
 LABEL dockerfile.version="2"
 LABEL software="Prokka"
-LABEL software.version="1.14.5"
+LABEL software.version=$PROKKA_VER
 LABEL description="Automated prokaryotic genome annotation tool"
 LABEL website="https://github.com/tseemann/prokka"
 LABEL license="https://github.com/tseemann/prokka#licence"
 LABEL maintainer="Curtis Kapsak"
 LABEL maintainer.email="pjx8@cdc.gov"
+LABEL maintainer2="Sarah Nadeau"
+LABEL maintainer2.email="sarah.nadeau@bsse.ethz.ch"
 
 # install dependencies
 RUN apt-get update && apt-get -y --no-install-recommends install \
@@ -84,15 +87,8 @@ RUN prokka --setupdb && prokka --listdb
 WORKDIR /data
 
 FROM app as test
+ARG PROKKA_VER
 
-# Get test dependencies
-RUN apt-get update && apt-get install -y python3
-COPY prokka/1.14.5/tests /tests
-RUN mkdir -p /test_data/asm
-COPY test_data/assembly/asm/SRR5481494_sub.fasta /test_data/asm/
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
+# Run test script
+COPY test.sh .
+RUN bash test.sh $PROKKA_VER

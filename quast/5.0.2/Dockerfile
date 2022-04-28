@@ -1,17 +1,20 @@
-FROM ubuntu:xenial as app
-
 # For easy upgrade. ARG variables only persist during image build time, not available when running the container
 ARG QUAST_VER=5.0.2
 
+FROM ubuntu:xenial as app
+ARG QUAST_VER
+
 LABEL base.image="ubuntu:xenial"
-LABEL dockerfile.version="3"
+LABEL dockerfile.version="4"
 LABEL software="QUAST"
-LABEL software.version="5.0.2"
+LABEL software.version=$QUAST_VER
 LABEL description="Genome assembly evaluation tool"
 LABEL website="https://github.com/ablab/quast"
 LABEL license="https://github.com/ablab/quast/blob/master/LICENSE.txt"
 LABEL maintainer="Curtis Kapsak"
 LABEL maintainer.email="pjx8@cdc.gov"
+LABEL maintainer2="Sarah Nadeau"
+LABEL maintainer2.email="sarah.nadeau@bsse.ethz.ch"
 
 RUN apt-get update && apt-get install -y zlib1g-dev \
   pkg-config \
@@ -51,17 +54,8 @@ RUN wget https://github.com/ablab/quast/releases/download/quast_${QUAST_VER}/qua
 WORKDIR /data
 
 FROM app as test
+ARG QUAST_VER
 
-# Get test dependencies
-RUN apt-get update && apt-get install -y python3
-COPY quast/5.0.2/tests /tests
-COPY test_data/assembly/asm/SRR5481494_sub.fasta /test_data/asm/
-
-# Check that tutorial data included in QUAST runs
-RUN bash /tests/scripts/run_tutorial_data.sh
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
+# Run test script
+COPY test.sh .
+RUN bash test.sh $QUAST_VER

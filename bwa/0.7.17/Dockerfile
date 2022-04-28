@@ -1,14 +1,19 @@
+ARG BWA_VER="0.7.17"
+
 FROM ubuntu:xenial as app
+ARG BWA_VER
 
 LABEL base.image="ubuntu:xenial"
-LABEL version="1"
+LABEL dockerfile.version="2"
 LABEL software="BWA"
-LABEL software.version="0.7.17"
-LABEL description="Burrow-Wheeler Aligner for short-read alignment"
+LABEL software.version=$BWA_VER
+LABEL description="Burrows-Wheeler Aligner for short-read alignment"
 LABEL website="https://github.com/lh3/bwa"
 LABEL license="https://github.com/lh3/bwa/blob/master/COPYING"
 LABEL maintainer="Curtis Kapsak"
 LABEL maintainer.email="pjx8@cdc.gov"
+LABEL maintainer2="Sarah Nadeau"
+LABEL maintainer2.email="sarah.nadeau@bsse.ethz.ch"
 
 RUN apt-get update && apt-get install -y make \
   wget \
@@ -19,33 +24,18 @@ RUN apt-get update && apt-get install -y make \
 RUN mkdir bwa &&\
   mkdir /data &&\
   cd bwa &&\
-  wget https://github.com/lh3/bwa/releases/download/v0.7.17/bwa-0.7.17.tar.bz2 &&\
-  tar -xjf bwa-0.7.17.tar.bz2 &&\
-  rm bwa-0.7.17.tar.bz2 &&\
-  cd bwa-0.7.17 &&\
+  wget https://github.com/lh3/bwa/releases/download/v$BWA_VER/bwa-$BWA_VER.tar.bz2 &&\
+  tar -xjf bwa-$BWA_VER.tar.bz2 &&\
+  rm bwa-$BWA_VER.tar.bz2 &&\
+  cd bwa-$BWA_VER &&\
   make
 
-ENV PATH="${PATH}:/bwa/bwa-0.7.17"
+ENV PATH="${PATH}:/bwa/bwa-$BWA_VER"
 WORKDIR /data
 
 FROM app as test
+ARG BWA_VER
 
-# Get test dependencies
-RUN apt-get update && apt-get install -y python3
-COPY bwa/0.7.17/tests /tests
-RUN mkdir -p /test_data/asm && mkdir -p /test_data/trim_reads
-
-# Copy uncorrected assembly
-COPY test_data/assembly/asm/contigs.fasta /test_data/asm/SRR5481494_sub.uncorrected.fna
-# Copy corrected assembly
-COPY test_data/assembly/asm/SRR5481494_sub.fasta /test_data/asm/
-# Copy read files (pairs, merged pairs, and singles)
-COPY test_data/assembly/trim_reads/SRR5481494_sub.notCombined_*.fastq.gz /test_data/trim_reads/
-COPY test_data/assembly/trim_reads/SRR5481494_sub.extendedFrags.fastq.gz /test_data/trim_reads/
-COPY test_data/assembly/trim_reads/SRR5481494_sub_R*.unpaired.fq.gz /test_data/trim_reads/
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
+# Run test script
+COPY test.sh .
+RUN bash test.sh $BWA_VER
