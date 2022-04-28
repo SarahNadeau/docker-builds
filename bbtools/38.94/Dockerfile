@@ -1,11 +1,14 @@
+ARG BBTOOLS_VER=38.94
+
 FROM ubuntu:xenial as app
+ARG BBTOOLS_VER
 
 LABEL base.image="ubuntu:xenial"
-LABEL dockerfile.version="1"
+LABEL dockerfile.version="2"
 LABEL software="BBTools"
-LABEL software.version="38.94"
+LABEL software.version=$BBTOOLS_VER
 LABEL description="A set of tools labeled as \"Bestus Bioinformaticus\""
-LABEL website="https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/"
+LABEL website="https://jgi.doe.gov/data-and-tools/software-tools/bbtools/"
 LABEL license="https://jgi.doe.gov/disclaimer/"
 LABEL maintainer="Abigail Shockey"
 LABEL maintainer.email="abigail.shockey@slh.wisc.edu"
@@ -32,9 +35,9 @@ RUN conda config --add channels defaults && \
     conda install sambamba samtools && \
     conda clean -a -y
 
-RUN wget https://sourceforge.net/projects/bbmap/files/BBMap_38.94.tar.gz && \
-    tar -xzf BBMap_38.94.tar.gz && \
-    rm BBMap_38.94.tar.gz
+RUN wget https://sourceforge.net/projects/bbmap/files/BBMap_$BBTOOLS_VER.tar.gz && \
+    tar -xzf BBMap_$BBTOOLS_VER.tar.gz && \
+    rm BBMap_$BBTOOLS_VER.tar.gz
 
 ENV PATH="${PATH}:/bbmap"\
     LC_ALL=C
@@ -42,17 +45,8 @@ ENV PATH="${PATH}:/bbmap"\
 WORKDIR /data
 
 FROM app as test
+ARG BBTOOLS_VER
 
-# Get test dependencies
-RUN apt-get update && apt-get install -y python3
-COPY bbtools/38.94/tests /tests
-RUN mkdir /test_data
-COPY test_data/assembly/*_sub*.fastq.gz /test_data/
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
-
-# Test with: docker build --progress=plain --target=test -t bbtools-test-image -f bbtools/38.94/Dockerfile .
+# Run test script
+COPY test.sh .
+RUN bash test.sh $BBTOOLS_VER
