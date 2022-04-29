@@ -1,10 +1,11 @@
-FROM ubuntu:focal as builder
-
 # Note: download source doesn't have many other versions, download is not generalizable
 ARG MUSCLE_VER="3.8.425"
 
+FROM ubuntu:focal as builder
+ARG MUSCLE_VER
+
 LABEL base.image="ubuntu:focal"
-LABEL dockerfile.version="1"
+LABEL dockerfile.version="2"
 LABEL software="MUSCLE"
 LABEL software.version=$MUSCLE_VER
 LABEL description="MUSCLE: MUltiple Sequence Comparison by Log- Expectation. A software for making multiple alignments of biological sequences."
@@ -23,17 +24,14 @@ FROM ubuntu:focal as app
 
 COPY --from=builder /usr/local /usr/local
 
+# Re-install wget to copy test data
+RUN apt-get update && apt-get install -y wget
+
 WORKDIR /data
 
 FROM app as test
+ARG MUSCLE_VER
 
-# Get test dependencies
-RUN apt-get update && apt-get install -y python3
-COPY muscle/3.8.425/tests /tests
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
-
+# Run test script
+COPY test.sh .
+RUN bash test.sh $MUSCLE_VER
