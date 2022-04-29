@@ -12,6 +12,7 @@ ARG IQTREE_VER="1.6.6"
 ARG FASTTREE_VER="2.1.11"
 
 LABEL base.image="ubuntu:xenial"
+LABEL dockerfile.version="2"
 LABEL software="Gubbins"
 LABEL software.version=${GUBBINS_VER}
 LABEL description="Gubbins: inference of recombination and phylogeny building excluding these positions."
@@ -91,19 +92,8 @@ RUN autoreconf -i && \
 WORKDIR /data
 
 FROM app as test
+ARG GUBBINS_VER
 
-ENV LD_LIBRARY_PATH="/usr/lib:/usr/local/lib"
-
-# Get test dependencies
-COPY gubbins/3.1.4/tests /tests
-
-# Copy test data
-COPY test_data/alignment/aln/parsnp.tree /test_data/
-COPY test_data/alignment/aln/parsnp.fasta.gz /test_data/
-RUN gunzip /test_data/parsnp.fasta.gz
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
+# Run test script
+COPY test.sh .
+RUN bash test.sh $GUBBINS_VER
