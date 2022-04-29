@@ -1,9 +1,10 @@
-FROM ubuntu:focal as app
-
 ARG FIGTREE_VER="1.4.4"
 
+FROM ubuntu:focal as app
+ARG FIGTREE_VER
+
 LABEL base.image="ubuntu:focal"
-LABEL dockerfile.version="1"
+LABEL dockerfile.version="2"
 LABEL software="FigTreee"
 LABEL software.version=$FIGTREE_VER
 LABEL description="FigTree: a graphical viewer and software for producing visualizations of phylogenetic trees."
@@ -27,14 +28,8 @@ RUN sed "s/lib/\/FigTree_v$FIGTREE_VER\/lib/g" /FigTree_v$FIGTREE_VER/bin/figtre
 WORKDIR /data
 
 FROM app as test
+ARG FIGTREE_VER
 
-# Get test dependencies
-RUN apt-get update && apt-get install -y python3
-COPY figtree/1.4.4/tests /tests
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
-
+# Run test script
+COPY test.sh .
+RUN bash test.sh $FIGTREE_VER
