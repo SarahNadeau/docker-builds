@@ -1,8 +1,10 @@
-FROM ubuntu:xenial as app
-
 ARG CLONALFRAMEML_VER="1.12"
 
+FROM ubuntu:xenial as app
+ARG CLONALFRAMEML_VER
+
 LABEL base.image="ubuntu:xenial"
+LABEL dockerfile.version="2"
 LABEL software="ClonalFrameML"
 LABEL software.version=${CLONALFRAMEML_VER}
 LABEL description="ClonalFrameML: Maximum-likelihood inference of recombination in bacterial genomes."
@@ -50,21 +52,10 @@ RUN mkdir -p /data
 WORKDIR /data
 
 FROM app as test
+ARG CLONALFRAMEML_VER
 
 ENV PATH=/ClonalFrameML/src/:$PATH
 
-# Get test dependencies
-RUN apt-get update && apt-get install -y python3
-COPY clonalframeml/1.12/tests /tests
-
-# Copy test data
-COPY test_data/alignment/aln/parsnp.tree /test_data/
-COPY test_data/alignment/aln/parsnp.xmfa.gz /test_data/
-COPY test_data/alignment/aln/parsnp.fasta.gz /test_data/
-RUN gunzip /test_data/parsnp.fasta.gz && gunzip /test_data/parsnp.xmfa.gz
-
-# Run positive control
-RUN bash /tests/scripts/run_positive_control.sh
-
-# Check output
-RUN python3 -m unittest discover -s /tests
+# Run test script
+COPY test.sh .
+RUN bash test.sh $CLONALFRAMEML_VER
