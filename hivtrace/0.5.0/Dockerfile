@@ -55,3 +55,5 @@ FROM app as test
 # Commenting out for now, seems that software is installed correctly given that 15/17 tests pass
 # RUN git clone https://github.com/veg/hivtrace.git /hivtrace && \
 #     python3.8 /hivtrace/test/test_hivtrace.py
+
+RUN hivtrace -h
