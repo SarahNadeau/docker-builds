@@ -43,6 +43,11 @@ RUN git clone https://github.com/veg/tn93.git && \
 
 RUN pip3 install hivtrace
 
+# Make sure a "rsrc/LANL.FASTA" and "rsrc/LANL.TN93OUTPUT.csv" files are available
+# Otherwise the program will try to unzip the gzipped versions, which causes issues in apptainer as it's a read-only directory
+RUN gunzip /usr/local/lib/python3.8/dist-packages/hivtrace/rsrc/LANL.FASTA.gz && \
+    gunzip /usr/local/lib/python3.8/dist-packages/hivtrace/rsrc/LANL.TN93OUTPUT.csv.gz
+
 # WORKDIR sets working directory
 WORKDIR /data
 
