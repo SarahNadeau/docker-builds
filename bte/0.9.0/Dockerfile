@@ -2,7 +2,7 @@
 
 FROM jmcbroome/bte:v0.9.0 as app
 
-RUN python3 -m pip install pandas
+RUN conda activate bte && python3 -m pip install pandas
 
 FROM app as test
 
