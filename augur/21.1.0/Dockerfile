@@ -35,7 +35,6 @@ RUN apt-get update && apt-get install -y \
   libpng-dev \
   libfreetype6-dev \
   mafft python2.7- \
-  iqtree \
   raxml \
   fasttree  \
   vcftools \
@@ -54,6 +53,15 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && \
     pip3 install --upgrade pip && \
     pip install Cython
 
+# Install IQ-TREE
+ARG IQTREE2_VER="2.2.2.2"
+RUN wget https://github.com/iqtree/iqtree2/releases/download/v${IQTREE2_VER}/iqtree-${IQTREE2_VER}-Linux.tar.gz && \
+    tar -xvf iqtree-${IQTREE2_VER}-Linux.tar.gz && \
+    rm -v iqtree-${IQTREE2_VER}-Linux.tar.gz && \
+    cp /iqtree-${IQTREE2_VER}-Linux/bin/iqtree2 /iqtree-${IQTREE2_VER}-Linux/bin/iqtree
+ENV PATH="/iqtree-${IQTREE2_VER}-Linux/bin:${PATH}" \
+    LC_ALL=C
+
 RUN wget https://github.com/nextstrain/augur/archive/refs/tags/${AUGUR_VER}.tar.gz && \
     tar -xzvf ${AUGUR_VER}.tar.gz && \
     rm ${AUGUR_VER}.tar.gz && \
@@ -64,6 +72,11 @@ WORKDIR /data
 
 FROM app as test
 
-# Stubbing test because zika tutorial errors out with "invalid -ntmax option"
-# This is not robust
-RUN augur tree -h
+RUN git clone https://github.com/snakemake/snakemake && \
+    cd snakemake && \
+    pip install "versioneer[toml]" && \
+    pip install .
+
+RUN git clone https://github.com/nextstrain/zika-tutorial && \
+    cd zika-tutorial && \
+    snakemake --cores 1
